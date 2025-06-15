@@ -1,1 +1,3 @@
 # Linear-Regression-Python
+# Codecadamy Off-Platform Project Prompt
+# Linear Regression is when you have a group of points on a graph, and you find a line that approximately resembles that group of points. A good Linear Regression algorithm minimizes the error, or the distance from each point to the line. A line with the least error is the line that fits the data the best. We call this a line of best fit. In this project, you’ll combine your knowledge of loops, lists, and arithmetic to create a function that will find a line of best fit when given a set of data.

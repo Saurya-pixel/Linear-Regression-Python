@@ -1,0 +1,80 @@
+
+# should return what the y value would be for that x on that line
+def get_y(m, b, x):
+  y = m*x + b
+  return y
+
+# # test
+# print(get_y(1, 0, 7) == 7)
+# print(get_y(5, 10, 3) == 25)
+
+
+#  return the distance between the line and the point.
+def calculate_error(m, b, point):
+  y = m*point[0] + b
+  error = abs(y-point[1])
+  return error
+
+
+
+# # this is a line that looks like y = x, so (3, 3) should lie on it. thus, error should be 0:
+# print(calculate_error(1, 0, (3, 3)))
+
+# # the point (3, 4) should be 1 unit away from the line y = x:
+# print(calculate_error(1, 0, (3, 4)))
+
+# # the point (3, 3) should be 1 unit away from the line y = x - 1:
+# print(calculate_error(1, -1, (3, 3)))
+
+# # the point (3, 3) should be 5 units away from the line y = -x + 1:
+# print(calculate_error(-1, 1, (3, 3)))
+
+
+# should iterate through each point in points and calculate the error from that point to the line (using calculate_error()). 
+# It should keep a running total of the error, and then return that total after the loop.
+def calculate_all_error(m, b, points):
+  total_error = 0
+  for data_point in points:
+    total_error += calculate_error(m, b, data_point)
+  return total_error
+
+
+# # sample points 
+# datapoints = [(1, 1), (3, 3), (5, 5), (-1, -1)]
+
+# # every point in this dataset lies upon y=x, so the total error should be zero:
+# print(calculate_all_error(1, 0, datapoints))
+
+# # every point in this dataset is 1 unit away from y = x + 1, so the total error should be 4:
+# print(calculate_all_error(1, 1, datapoints))
+
+# # every point in this dataset is 1 unit away from y = x - 1, so the total error should be 4:
+# print(calculate_all_error(1, -1, datapoints))
+
+# # the points in this dataset are 1, 5, 9, and 3 units away from y = -x + 1, respectively, so total error should be
+# # 1 + 5 + 9 + 3 = 18
+# print(calculate_all_error(-1, 1, datapoints))
+
+
+# This could be any range
+possible_ms = [round(m * 0.1, 1) for m in range(-100, 101)]
+possible_bs = [round(b*0.1, 1) for b in range(-200, 201)]
+
+datapoints = [(1, 2), (2, 0), (3, 4), (4, 4), (5, 3)]
+smallest_error = float("inf")
+best_m = 0
+best_b = 0
+
+# we will see which y = m*x + b line produces the smallest total error with the set of data stored in datapoints.
+for m in possible_ms:
+    for b in possible_bs:
+      if calculate_all_error(m, b, datapoints) < smallest_error:
+        smallest_error = calculate_all_error(m, b, datapoints)
+        best_m = m
+        best_b = b
+        
+print("The best slope for the line with these data points would be " + str(best_m))
+print("The best b value/y-intercept for this line would be " + str(best_b))
+print("The smallest error able to be calculated for these data points would be " + str(smallest_error))
+
+print("The model predicts a value of " + str(get_y(0.4,1.6,6)) + " with an input of 6")
